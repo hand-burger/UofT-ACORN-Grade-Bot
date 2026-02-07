@@ -1,0 +1,6 @@
+requests
+selenium
+webdriver-manager
+beautifulsoup4
+rich
+plyer
