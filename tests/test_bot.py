@@ -46,12 +46,6 @@ class TestAcornBot(unittest.TestCase):
         # First run (current_courses is empty)
         changes = self.bot.check_for_changes(new_courses)
         
-        # Should initialize current_courses but return no changes (to avoid spam on startup)
-        # Wait, looking at the code:
-        # if not self.current_courses:
-        #    self.current_courses = new_courses
-        #    return []
-        
         self.assertEqual(len(changes), 0)
         self.assertEqual(self.bot.current_courses, new_courses)
 

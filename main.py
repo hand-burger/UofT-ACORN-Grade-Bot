@@ -132,13 +132,25 @@ class AcornBot:
 
     def send_notification(self, changes):
         msg_text = "\n".join(changes)
+        
+        # Desktop Notification
         try:
+            # Try plyer first
             notification.notify(
                 title='ACORN Grade Update!',
                 message=msg_text[:256],
                 app_name='ACORN Bot'
             )
-        except: pass
+        except Exception:
+            # Fallback for macOS native notifications via AppleScript
+            if sys.platform == "darwin":
+                try:
+                    title = "ACORN Grade Update!"
+                    # Escape double quotes for AppleScript
+                    clean_msg = msg_text.replace('"', '\\"')
+                    os.system(f'osascript -e "display notification \\"{clean_msg}\\" with title \\"{title}\\""')
+                except:
+                    pass
 
         if self.email_config:
             try:
